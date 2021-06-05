@@ -16,13 +16,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 jwt = JWT(app, authenticate, identity)
 
-
-@app.before_first_request #Before the first request runs, the function below runs
-def create_tables():
-  db.create_all()
-  db.session.commit()
-
-
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(UserRegister, '/register')
