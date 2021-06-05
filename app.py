@@ -1,4 +1,4 @@
-import os
+#import os
 #import re
 
 from flask import Flask
@@ -12,7 +12,7 @@ from resources.store import Store, StoreList
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'jose'
 api = Api(app)
@@ -29,3 +29,7 @@ if __name__ == "__main__":
     from run import db
     db.init_app(app)
     app.run(port=5000, debug=True)
+
+# uri = os.getenv("DATABASE_URL")  # or other relevant config var
+# if uri.startswith("postgres://"):
+#     uri = uri.replace("postgres://", "postgresql://", 1)
